@@ -2,6 +2,12 @@ const green = "\x1b[32m"
 const red = "\x1b[31m"
 const reset = "\x1b[0m"
 
+/**
+ * Check if callback returns true
+ * @param {string} caseName
+ * @param {function} cb
+ * @return {Promise<void>}
+ */
 export async function checkCase(caseName, cb) {
     console.log(caseName);
     console.time('Elapsed time');
