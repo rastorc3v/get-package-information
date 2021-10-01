@@ -1,6 +1,6 @@
 # Release notes
 
-# Next release
+## 1.0.3 - 10.02.2021
 
 ### Added
 * getFields function
