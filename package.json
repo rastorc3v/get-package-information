@@ -6,5 +6,8 @@
   "keywords": ["get dependencies", "get devDependencies", "dependency", "devDependency"],
   "author": "rastorc3v@gmail.com",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/rastorc3v/get-package-information"
+  }
 }
