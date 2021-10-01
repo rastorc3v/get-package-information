@@ -9,5 +9,11 @@
   "type": "module",
   "repository": {
     "url": "https://github.com/rastorc3v/get-package-information"
-  }
+  },
+  "files": [
+    "tools/**/*",
+    "index.js",
+    "package.json",
+    "*.md"
+  ]
 }
