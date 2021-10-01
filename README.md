@@ -12,6 +12,7 @@ info command to get specific data from package.json.
 
 - Dependencies
 - Development dependencies
+- All dependencies
 
 ## API
 
@@ -45,7 +46,7 @@ import { getDependenciesSync } from "get-package-information";
 const dependencies = getDependenciesSync('webpack'); 
 console.log(dependencies);
 ```
-Result:
+_Result:_
 ```json
 {
     "@types/eslint-scope": "^3.7.0",
