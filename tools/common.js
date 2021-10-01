@@ -73,7 +73,7 @@ export function getAllDependenciesSync(packageName) {
  * @param {boolean} isObject
  * @return {Promise<string | object>}
  */
-export async function getField(packageName, fields, isObject=false) {
+export async function getFields(packageName, fields, isObject=false) {
     return await npmInfo(packageName, fields, isObject);
 }
 
@@ -87,7 +87,7 @@ export async function getField(packageName, fields, isObject=false) {
  * @param {boolean} isObject
  * @return {string | object}
  */
-export function getFieldSync(packageName, fields, isObject=false) {
+export function getFieldsSync(packageName, fields, isObject=false) {
     return npmInfoSync(packageName, fields, isObject);
 }
 
