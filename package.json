@@ -15,5 +15,8 @@
     "index.js",
     "package.json",
     "*.md"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }
