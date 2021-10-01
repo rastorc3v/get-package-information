@@ -3,7 +3,7 @@ import parseOutput from "./outputParser.js";
 
 /**
  * Asynchronously get object which the same as dependencies field
- * in package.json from provided package
+ * in package.json from provided package.
  * @param packageName
  * @return {Promise<{dependencyPackageName: version}>}
  */
@@ -13,7 +13,7 @@ export async function getDependencies(packageName) {
 
 /**
  * Synchronously get object which the same as dependencies field
- * in package.json from provided package
+ * in package.json from provided package.
  * @param packageName
  * @return {{dependencyPackageName: version}}
  */
@@ -23,7 +23,7 @@ export function getDependenciesSync(packageName) {
 
 /**
  * Asynchronously get object which the same as devDependencies field
- * in package.json from provided package
+ * in package.json from provided package.
  * @param packageName
  * @return {Promise<{devDependencyPackageName: version}>}
  */
@@ -33,12 +33,34 @@ export async function getDevDependencies(packageName) {
 
 /**
  * Synchronously get object which the same as devDependencies field
- * in package.json from provided package
+ * in package.json from provided package.
  * @param packageName
  * @return {{devDependencyPackageName: version}}
  */
 export function getDevDependenciesSync(packageName) {
     return npmInfoSync(packageName, ['devDependencies']);
+}
+
+/**
+ * Asynchronously get object which contains devDependencies field
+ * data concatenated with dependencies field data in package.json
+ * from provided package.
+ * @param packageName
+ * @return {{dependencyPackageName: version}}
+ */
+export async function getAllDependencies(packageName) {
+    return await npmInfo(packageName, ['devDependencies', 'dependencies']);
+}
+
+/**
+ * Synchronously get object which contains devDependencies field
+ * data concatenated with dependencies field data in package.json
+ * from provided package.
+ * @param packageName
+ * @return {{dependencyPackageName: version}}
+ */
+export function getAllDependenciesSync(packageName) {
+    return npmInfoSync(packageName, ['devDependencies', 'dependencies']);
 }
 
 async function npmInfo(packageName, fields=[]) {
