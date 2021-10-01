@@ -1,7 +1,7 @@
 export default function parseOutput(cmdOutput) {
     const packageNames = [],
         packageVersions = [];
-    for (let packageName of cmdOutput.matchAll(/(.+):\s/g)) {
+    for (let packageName of cmdOutput.matchAll(/{?(.+):\s/g)) {
         packageNames.push(packageName[1].replace('\'', '').replace('\'', ''));
     }
     for (let packageVersion of cmdOutput.matchAll(/:\s'(.+)'/g)) {
