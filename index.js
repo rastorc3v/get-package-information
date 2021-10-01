@@ -1,1 +1,1 @@
-export * from './tools/common';
+export * from './tools/common.js';
