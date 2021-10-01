@@ -8,7 +8,7 @@ import parseOutput from "./outputParser.js";
  * @return {Promise<{dependencyPackageName: version}>}
  */
 export async function getDependencies(packageName) {
-    return await npmInfo(packageName, ['dependencies']);
+    return await npmInfo(packageName, ['dependencies'], true);
 }
 
 /**
@@ -18,7 +18,7 @@ export async function getDependencies(packageName) {
  * @return {{dependencyPackageName: version}}
  */
 export function getDependenciesSync(packageName) {
-    return npmInfoSync(packageName, ['dependencies']);
+    return npmInfoSync(packageName, ['dependencies'],true);
 }
 
 /**
@@ -28,7 +28,7 @@ export function getDependenciesSync(packageName) {
  * @return {Promise<{devDependencyPackageName: version}>}
  */
 export async function getDevDependencies(packageName) {
-    return await npmInfo(packageName, ['devDependencies']);
+    return await npmInfo(packageName, ['devDependencies'], true);
 }
 
 /**
@@ -38,7 +38,7 @@ export async function getDevDependencies(packageName) {
  * @return {{devDependencyPackageName: version}}
  */
 export function getDevDependenciesSync(packageName) {
-    return npmInfoSync(packageName, ['devDependencies']);
+    return npmInfoSync(packageName, ['devDependencies'], true);
 }
 
 /**
@@ -49,7 +49,7 @@ export function getDevDependenciesSync(packageName) {
  * @return {{dependencyPackageName: version}}
  */
 export async function getAllDependencies(packageName) {
-    return await npmInfo(packageName, ['devDependencies', 'dependencies']);
+    return await npmInfo(packageName, ['devDependencies', 'dependencies'], true);
 }
 
 /**
@@ -60,10 +60,10 @@ export async function getAllDependencies(packageName) {
  * @return {{dependencyPackageName: version}}
  */
 export function getAllDependenciesSync(packageName) {
-    return npmInfoSync(packageName, ['devDependencies', 'dependencies']);
+    return npmInfoSync(packageName, ['devDependencies', 'dependencies'], true);
 }
 
-async function npmInfo(packageName, fields=[]) {
+async function npmInfo(packageName, fields=[], isJSON=false) {
     return new Promise(((resolve, reject) => {
         exec(`npm info ${packageName} ${fields.join(' ')}`, ((error, stdout, stderr) => {
             if (error) {
@@ -73,12 +73,13 @@ async function npmInfo(packageName, fields=[]) {
                 reject(stderr);
             }
             if (stdout) {
-                resolve(parseOutput(stdout));
+                resolve(isJSON ? parseOutput(stdout) : stdout);
             }
         }));
     }));
 }
 
-function npmInfoSync(packageName, fields=[]) {
-    return parseOutput(execSync(`npm info ${packageName} ${fields.join(' ')}`).toString());
+function npmInfoSync(packageName, fields=[], isJSON=false) {
+    const stdout = execSync(`npm info ${packageName} ${fields.join(' ')}`).toString();
+    return isJSON ? parseOutput(stdout) : stdout;
 }
