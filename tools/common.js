@@ -63,7 +63,35 @@ export function getAllDependenciesSync(packageName) {
     return npmInfoSync(packageName, ['devDependencies', 'dependencies'], true);
 }
 
-async function npmInfo(packageName, fields=[], isJSON=false) {
+/**
+ * Asynchronously get data from specified field
+ * or fields. If field data can be only object,
+ * _isObject=true_ can be used to return parsed
+ * data.
+ * @param {string} packageName
+ * @param {string[]} fields
+ * @param {boolean} isObject
+ * @return {Promise<string | object>}
+ */
+export async function getField(packageName, fields, isObject=false) {
+    return await npmInfo(packageName, fields, isObject);
+}
+
+/**
+ * Synchronously get data from specified field
+ * or fields. If field data can be only object,
+ * _isObject=true_ can be used to return parsed
+ * data.
+ * @param {string} packageName
+ * @param {string[]} fields
+ * @param {boolean} isObject
+ * @return {string | object}
+ */
+export function getFieldSync(packageName, fields, isObject=false) {
+    return npmInfoSync(packageName, fields, isObject);
+}
+
+async function npmInfo(packageName, fields=[], isObject=false) {
     return new Promise(((resolve, reject) => {
         exec(`npm info ${packageName} ${fields.join(' ')}`, ((error, stdout, stderr) => {
             if (error) {
@@ -73,13 +101,13 @@ async function npmInfo(packageName, fields=[], isJSON=false) {
                 reject(stderr);
             }
             if (stdout) {
-                resolve(isJSON ? parseOutput(stdout) : stdout);
+                resolve(isObject ? parseOutput(stdout) : stdout);
             }
         }));
     }));
 }
 
-function npmInfoSync(packageName, fields=[], isJSON=false) {
+function npmInfoSync(packageName, fields=[], isObject=false) {
     const stdout = execSync(`npm info ${packageName} ${fields.join(' ')}`).toString();
-    return isJSON ? parseOutput(stdout) : stdout;
+    return isObject ? parseOutput(stdout) : stdout;
 }
