@@ -13,6 +13,7 @@ info command to get specific data from package.json.
 - Dependencies
 - Development dependencies
 - All dependencies
+- Other fields (version, description, keywords, etc.)
 
 ## API
 
@@ -20,6 +21,8 @@ info command to get specific data from package.json.
 - [getDependenciesSync](#getdependenciessync)
 - [getDevDependencies](#getdevdependencies)
 - [getDevDependenciesSync](#getdevdependenciessync)
+- [getFields](#getfields)
+- [getFieldsSync](#getfieldssync)
 
 ### getDependencies
 ```javascript
@@ -89,4 +92,35 @@ _Result:_
     "@types/es-module-lexer": "^0.4.1",
     ...
 }
+```
+
+### getFields
+```javascript
+import { getFields } from "get-package-information";
+
+getFields('webpack', ['author', 'description', 'repository']).then(info => {
+    console.log(info);
+});
+```
+_Result:_
+```
+author = 'Tobias Koppers @sokra'
+description = 'Packs CommonJs/AMD modules for the browser. Allows to split your codebase into multiple bundles, which can be loaded on demand. Support loaders to preprocess files, i.e.
+ json, jsx, es7, css, less, ... and your custom stuff.'
+repository = { type: 'git', url: 'git+https://github.com/webpack/webpack.git' }
+```
+
+### getFieldsSync
+```javascript
+import { getFieldsSync } from "get-package-information";
+
+const info = getFieldsSync('webpack', ['author', 'description', 'repository']);
+console.log(info);
+```
+_Result:_
+```
+author = 'Tobias Koppers @sokra'
+description = 'Packs CommonJs/AMD modules for the browser. Allows to split your codebase into multiple bundles, which can be loaded on demand. Support loaders to preprocess files, i.e.
+ json, jsx, es7, css, less, ... and your custom stuff.'
+repository = { type: 'git', url: 'git+https://github.com/webpack/webpack.git' }
 ```
