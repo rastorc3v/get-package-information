@@ -21,6 +21,8 @@ info command to get specific data from package.json.
 - [getDependenciesSync](#getdependenciessync)
 - [getDevDependencies](#getdevdependencies)
 - [getDevDependenciesSync](#getdevdependenciessync)
+- [getAllDependencies](#getalldependencies)
+- [getAllDependenciesSync](#getalldependenciessync)  
 - [getFields](#getfields)
 - [getFieldsSync](#getfieldssync)
 
@@ -91,6 +93,53 @@ _Result:_
     "@babel/preset-react": "7.10.4",
     "@types/es-module-lexer": "^0.4.1",
     ...
+}
+```
+
+### getAllDependencies
+```javascript
+import { getAllDependencies } from "get-package-information";
+
+getAllDependencies('webpack').then((dependencies => {
+    console.log(dependencies);
+})); 
+```
+_Result:_
+```json
+{
+  "dependencies": {
+    "@types/eslint-scope": "^3.7.0",
+    "@types/estree": "^0.0.50",
+    ...
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-react": "^7.10.4",
+    ...
+  }
+}
+```
+
+### getAllDependenciesSync
+```javascript
+import { getAllDependencies } from "get-package-information";
+
+const dependencies = getAllDependencies('webpack');
+console.log(dependencies);
+```
+_Result:_
+```json
+{
+  "dependencies": {
+    "@types/eslint-scope": "^3.7.0",
+    "@types/estree": "^0.0.50",
+    ...
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-react": "^7.10.4",
+    ...
+  }
 }
 ```
 
