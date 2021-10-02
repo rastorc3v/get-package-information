@@ -1,6 +1,6 @@
 {
   "name": "get-package-information",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "This module provides functions to get information\nabout other not installed module. It executes npm\ninfo command to get specific data from package.json.",
   "main": "index.js",
   "keywords": ["get dependencies", "get devDependencies", "dependency", "devDependency"],
