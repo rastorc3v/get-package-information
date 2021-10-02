@@ -1,5 +1,4 @@
 import { exec, execSync } from "child_process";
-import parseOutput from "./outputParser.js";
 
 /**
  * Asynchronously get object which the same as dependencies field
@@ -8,7 +7,7 @@ import parseOutput from "./outputParser.js";
  * @return {Promise<{dependencyPackageName: version}>}
  */
 export async function getDependencies(packageName) {
-    return await npmInfo(packageName, ['dependencies'], true);
+    return await npmInfo(packageName, ['dependencies']);
 }
 
 /**
@@ -18,7 +17,7 @@ export async function getDependencies(packageName) {
  * @return {{dependencyPackageName: version}}
  */
 export function getDependenciesSync(packageName) {
-    return npmInfoSync(packageName, ['dependencies'],true);
+    return npmInfoSync(packageName, ['dependencies']);
 }
 
 /**
@@ -28,7 +27,7 @@ export function getDependenciesSync(packageName) {
  * @return {Promise<{devDependencyPackageName: version}>}
  */
 export async function getDevDependencies(packageName) {
-    return await npmInfo(packageName, ['devDependencies'], true);
+    return await npmInfo(packageName, ['devDependencies']);
 }
 
 /**
@@ -38,7 +37,7 @@ export async function getDevDependencies(packageName) {
  * @return {{devDependencyPackageName: version}}
  */
 export function getDevDependenciesSync(packageName) {
-    return npmInfoSync(packageName, ['devDependencies'], true);
+    return npmInfoSync(packageName, ['devDependencies']);
 }
 
 /**
@@ -49,7 +48,7 @@ export function getDevDependenciesSync(packageName) {
  * @return {{dependencyPackageName: version}}
  */
 export async function getAllDependencies(packageName) {
-    return await npmInfo(packageName, ['devDependencies', 'dependencies'], true);
+    return await npmInfo(packageName, ['devDependencies', 'dependencies']);
 }
 
 /**
@@ -60,7 +59,7 @@ export async function getAllDependencies(packageName) {
  * @return {{dependencyPackageName: version}}
  */
 export function getAllDependenciesSync(packageName) {
-    return npmInfoSync(packageName, ['devDependencies', 'dependencies'], true);
+    return npmInfoSync(packageName, ['devDependencies', 'dependencies']);
 }
 
 /**
@@ -70,11 +69,10 @@ export function getAllDependenciesSync(packageName) {
  * data.
  * @param {string} packageName
  * @param {string[]} fields
- * @param {boolean} isObject
  * @return {Promise<string | object>}
  */
-export async function getFields(packageName, fields, isObject=false) {
-    return await npmInfo(packageName, fields, isObject);
+export async function getFields(packageName, fields) {
+    return await npmInfo(packageName, fields);
 }
 
 /**
@@ -84,16 +82,15 @@ export async function getFields(packageName, fields, isObject=false) {
  * data.
  * @param {string} packageName
  * @param {string[]} fields
- * @param {boolean} isObject
  * @return {string | object}
  */
-export function getFieldsSync(packageName, fields, isObject=false) {
-    return npmInfoSync(packageName, fields, isObject);
+export function getFieldsSync(packageName, fields) {
+    return npmInfoSync(packageName, fields);
 }
 
-async function npmInfo(packageName, fields=[], isObject=false) {
+async function npmInfo(packageName, fields=[]) {
     return new Promise(((resolve, reject) => {
-        exec(`npm info ${packageName} ${fields.join(' ')}`, ((error, stdout, stderr) => {
+        exec(`npm info ${packageName} ${fields.join(' ')} --json=true`, ((error, stdout, stderr) => {
             if (error) {
                 reject(error);
             }
@@ -101,13 +98,13 @@ async function npmInfo(packageName, fields=[], isObject=false) {
                 reject(stderr);
             }
             if (stdout) {
-                resolve(isObject ? parseOutput(stdout) : stdout);
+                resolve(JSON.parse(stdout));
             }
         }));
     }));
 }
 
-function npmInfoSync(packageName, fields=[], isObject=false) {
-    const stdout = execSync(`npm info ${packageName} ${fields.join(' ')}`).toString();
-    return isObject ? parseOutput(stdout) : stdout;
+function npmInfoSync(packageName, fields=[]) {
+    const stdout = execSync(`npm info ${packageName} ${fields.join(' ')} --json=true`).toString();
+    return JSON.parse(stdout);
 }
