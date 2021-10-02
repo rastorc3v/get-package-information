@@ -1,5 +1,10 @@
 # Release notes
 
+## 1.1.0 - 10.02.2021
+
+### Breaking changes
+* all data return in json
+
 ## 1.0.3 - 10.02.2021
 
 ### Added

@@ -100,14 +100,17 @@ import { getFields } from "get-package-information";
 
 getFields('webpack', ['author', 'description', 'repository']).then(info => {
     console.log(info);
+    console.log(info.repository.url);
 });
 ```
 _Result:_
-```
-author = 'Tobias Koppers @sokra'
-description = 'Packs CommonJs/AMD modules for the browser. Allows to split your codebase into multiple bundles, which can be loaded on demand. Support loaders to preprocess files, i.e.
- json, jsx, es7, css, less, ... and your custom stuff.'
-repository = { type: 'git', url: 'git+https://github.com/webpack/webpack.git' }
+```json5
+{
+  "author": 'Tobias Koppers @sokra',
+  "description": 'Packs CommonJs/AMD modules for the browser...',
+  "repository": { "type": 'git', "url": 'git+https://github.com/webpack/webpack.git' }
+}
+git+https://github.com/webpack/webpack.git
 ```
 
 ### getFieldsSync
@@ -116,11 +119,14 @@ import { getFieldsSync } from "get-package-information";
 
 const info = getFieldsSync('webpack', ['author', 'description', 'repository']);
 console.log(info);
+console.log(info.repository.url)
 ```
 _Result:_
-```
-author = 'Tobias Koppers @sokra'
-description = 'Packs CommonJs/AMD modules for the browser. Allows to split your codebase into multiple bundles, which can be loaded on demand. Support loaders to preprocess files, i.e.
- json, jsx, es7, css, less, ... and your custom stuff.'
-repository = { type: 'git', url: 'git+https://github.com/webpack/webpack.git' }
+```json5
+{
+  "author": 'Tobias Koppers @sokra',
+  "description": 'Packs CommonJs/AMD modules for the browser...',
+  "repository": { "type": 'git', "url": 'git+https://github.com/webpack/webpack.git' }
+}
+git+https://github.com/webpack/webpack.git
 ```

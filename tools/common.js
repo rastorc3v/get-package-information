@@ -69,7 +69,7 @@ export function getAllDependenciesSync(packageName) {
  * data.
  * @param {string} packageName
  * @param {string[]} fields
- * @return {Promise<string | object>}
+ * @return {Promise<object>}
  */
 export async function getFields(packageName, fields) {
     return await npmInfo(packageName, fields);
@@ -82,7 +82,7 @@ export async function getFields(packageName, fields) {
  * data.
  * @param {string} packageName
  * @param {string[]} fields
- * @return {string | object}
+ * @return {object}
  */
 export function getFieldsSync(packageName, fields) {
     return npmInfoSync(packageName, fields);
