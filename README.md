@@ -5,7 +5,7 @@
 ## Description
 
 This module provides functions to get information
-about other not installed module. It executes npm
+about other not installed modules in JSON format. It executes npm
 info command to get specific data from package.json.
 
 ## Available information to get:
